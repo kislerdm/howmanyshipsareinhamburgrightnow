@@ -13,7 +13,7 @@ plotter <- function(df_agg) {
             text = ~paste0(arrival, "<br>N ships: ", n , " (", round(share, 2), "%)" ), 
             showlegend = F) %>% 
     layout(title = 'Arrival Status', font = list(size = 18), 
-           autosize = F, height = 400, margin = list(t = 50, l = 10, r = 10, b = 20),
+           margin = list(t = 50, l = 10, r = 10, b = 20),
            xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
            yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
   # ship types
@@ -26,7 +26,7 @@ plotter <- function(df_agg) {
             text = ~paste0(type, "<br>N ships: ", n , " (", round(share, 2), "%)" ), 
             showlegend = F) %>% 
     layout(title = 'Ships Types', font = list(size = 18), 
-           autosize = F, height = 400, margin = list(t = 50, l = 10, r = 10, b = 20),
+           margin = list(t = 50, l = 10, r = 10, b = 20),
            xaxis = list(title = F, showgrid = T, zeroline = T, showticklabels = T),
            yaxis = list(title = F, showgrid = F, zeroline = F, showticklabels = F))
   # speed distr 
