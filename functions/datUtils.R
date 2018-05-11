@@ -52,16 +52,15 @@ datAggregator <- function(df) {
   {
     list(
       # define moving vessels fraction
-      moving = mutate(., moving = s > 0) %>% group_by(moving) %>% summarizer(),
+      length = mutate(., length = cut(l, breaks = c(seq(0, 350, 50), 1e4), labels = c('<50', paste0(seq(50,300,50), '-', seq(100,350,50)), '>350'), include.lowest = T, ordered_result = T)) %>% 
+        group_by(length) %>% summarizer(),
       # define arrival ships
       arrival = group_by(.data = ., arrival) %>% summarizer(),
       # types stats
       types = group_by(.data = ., type) %>% summarizer(),
       # speed disttr
-      speed = mutate(.data = ., speed = cut(s, breaks = c(0, 1e-3, 1, seq(5, 50, 5), 1e3), labels = c('0', '<1', '1-5', paste0(seq(5, 45, 5), '-', seq(10, 50, 5)), '>50'), 
-                                            include.lowest = T, ordered_result = T)) %>%
+      speed = mutate(.data = ., speed = cut(s, breaks = c(0, 1e-3, 1, seq(5, 50, 5), 1e3), labels = c('0', '<1', '1-5', paste0(seq(5, 45, 5), '-', seq(10, 50, 5)), '>50'), include.lowest = T, ordered_result = T)) %>%
         group_by(speed) %>% summarizer()
-      
     )
   }
 }

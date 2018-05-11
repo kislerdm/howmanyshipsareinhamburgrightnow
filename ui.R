@@ -34,7 +34,7 @@ uiBuilder <- function(error = F) {
                                                       column(width = 6, plotlyOutput('stats_arrival', width = '90%')),
                                                       column(width = 6, plotlyOutput('stats_types', width = '90%'))
                                                     ),
-                                                    fluidRow( column(width = 12, plotlyOutput('stats_speed', width = '98%')) )
+                                                    fluidRow( column(width = 12, plotlyOutput('stats_speed_length', width = '99%', height = '500px')) )
                                            )
                                     ),
                                     column(width = 2)),

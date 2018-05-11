@@ -46,7 +46,7 @@ server <- function(input, output, session) {
       # draw stats plots
       output$stats_arrival <- renderPlotly(d_stats$arrival)
       output$stats_types <- renderPlotly(d_stats$types)
-      output$stats_speed <- renderPlotly(d_stats$speed)
+      output$stats_speed_length <- renderPlotly(d_stats$length_speed)
     }
   })
   # countdown to next data update
