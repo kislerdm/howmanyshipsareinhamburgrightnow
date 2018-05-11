@@ -34,6 +34,9 @@ server <- function(input, output, session) {
     } else {
       # total numb. of ships in HH
       output$total_num <- renderUI( HTML( nrow(d()) ))
+      # countdow to next data update
+      t0 <<- Sys.time() + t_delay/1e3
+      output$countdown <- renderUI({ HTML( "<strong>Next data update in ", round(difftime(t0, Sys.time(), 'secs'), 0), " sec." ) })    
       # update the map
       leafletProxy('map_location', data = d()) %>%
         clearMarkers() %>% clearGroup('ships') %>% 
@@ -45,6 +48,11 @@ server <- function(input, output, session) {
       output$stats_types <- renderPlotly(d_stats$types)
       output$stats_speed <- renderPlotly(d_stats$speed)
     }
+  })
+  # countdown to next data update
+  observe({
+    invalidateLater(t_delay/10)
+    output$countdown <- renderUI({ HTML( "<strong>Next data update in ", round(difftime(t0, Sys.time(), 'secs'), 0), " sec." ) })    
   })
 }
 

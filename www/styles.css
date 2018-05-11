@@ -20,6 +20,14 @@ body {
   text-shadow: 2px 2px #fff;
 }
 
+/* time to next update countdown */
+#timer {
+  font-size: 20px;
+  margin-top: -50px;
+  color: white;
+  text-shadow: 1px 1px #000;
+}
+
 /* data status */
 #status {
   margin-top: 20%;
@@ -43,17 +51,6 @@ body {
   border: 2px solid black;
 }
 
-/* footer */
-#footer {
-  position: fixed; 
-  bottom: 0;
-  right: 0;
-  z-index:1001;
-  width: 100%;
-  background: white;
-  text-align: center;
-}
-
 /* plots  */
 #stats {
   width: 100%;
@@ -73,4 +70,24 @@ body {
 #stats_title {
   top: 10px;
   bottom: 20px;
+}
+
+/* footer */
+#footer {
+  height: 65px;
+  position: fixed; 
+  bottom: 0;
+  right: 0;
+  z-index:1001;
+  width: 100%;
+  background: white;
+  text-align: center;
+}
+
+#about {
+  margin-top: 5px;
+}
+
+#copyright {
+  bottom: 0;
 }
