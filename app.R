@@ -20,7 +20,7 @@ server <- function(input, output, session) {
     leaflet(d()) %>% 
       addTiles(options = tileOptions(maxZoom = 18, minZoom = 9)) %>%
       setMaxBounds(8, 53, 11, 55) %>% 
-      addMarkers(lng = ~x, lat = ~y, group = 'ships', layerId = 'ships', icon = ship_icon, popup = ~popup, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = T))  
+      addMarkers(lng = ~x, lat = ~y, popup = ~popup, icon = ship_icon, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE), group = 'ships')
   ))
   # update
   observe({
@@ -40,7 +40,7 @@ server <- function(input, output, session) {
       # update the map
       leafletProxy('map_location', data = d()) %>%
         clearMarkers() %>% clearGroup('ships') %>% 
-        addMarkers(lng = ~x, lat = ~y, group = 'ships', layerId = 'ships', icon = ship_icon, popup = ~popup, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = T))  
+        addMarkers(lng = ~x, lat = ~y, popup = ~popup, icon = ship_icon, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE), group = 'ships')
       # agg data for stats
       d_stats <- datAggregator(d()) %>% plotter()
       # draw stats plots
