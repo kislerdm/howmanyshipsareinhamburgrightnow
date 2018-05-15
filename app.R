@@ -24,7 +24,7 @@ server <- function(input, output, session) {
   ))
   # update
   observe({
-    if( nrow(d()) == 0) {
+    if( is.null(d())) {
       # no data fetched
       uiBuilder(error = T)      
       output$status <- renderUI( HTML(paste0("<strong><em>Cannot fetch the data from AIS</em><strong>
@@ -32,21 +32,30 @@ server <- function(input, output, session) {
                                              as.character(Sys.time()),"%0D%0AError: no data found' target='blank_'>email</a>.")))
       t_delay <<- 1e10
     } else {
-      # total numb. of ships in HH
-      output$total_num <- renderUI( HTML( nrow(d()) ))
-      # countdow to next data update
-      t0 <<- Sys.time() + t_delay/1e3
-      output$countdown <- renderUI({ HTML( "<strong>Next data update in ", round(difftime(t0, Sys.time(), 'secs'), 0), " sec." ) })    
-      # update the map
-      leafletProxy('map_location', data = d()) %>%
-        clearMarkers() %>% clearGroup('ships') %>% 
-        addMarkers(lng = ~x, lat = ~y, popup = ~popup, icon = ship_icon, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE), group = 'ships')
-      # agg data for stats
-      d_stats <- datAggregator(d()) %>% plotter()
-      # draw stats plots
-      output$stats_arrival <- renderPlotly(d_stats$arrival)
-      output$stats_types <- renderPlotly(d_stats$types)
-      output$stats_speed_length <- renderPlotly(d_stats$length_speed)
+      if( nrow(d()) == 0 ) {
+        # no data fetched
+        uiBuilder(error = T)      
+        output$status <- renderUI( HTML(paste0("<strong><em>Cannot fetch the data from AIS</em><strong>
+                                       <br>Please send a report via <a href='mailto:admin@dkisler.de?subject=No data from AIS&body=%0D%0A%0D%0ATech data (DO NOT REMOVE):%0D%0Ats: ",
+                                               as.character(Sys.time()),"%0D%0AError: no data found' target='blank_'>email</a>.")))
+        t_delay <<- 1e10
+      } else {
+        # total numb. of ships in HH
+        output$total_num <- renderUI( HTML( nrow(d()) ))
+        # countdow to next data update
+        t0 <<- Sys.time() + t_delay/1e3
+        output$countdown <- renderUI({ HTML( "<strong>Next data update in ", round(difftime(t0, Sys.time(), 'secs'), 0), " sec." ) })    
+        # update the map
+        leafletProxy('map_location', data = d()) %>%
+          clearMarkers() %>% clearGroup('ships') %>% 
+          addMarkers(lng = ~x, lat = ~y, popup = ~popup, icon = ship_icon, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE), group = 'ships')
+        # agg data for stats
+        d_stats <- datAggregator(d()) %>% plotter()
+        # draw stats plots
+        output$stats_arrival <- renderPlotly(d_stats$arrival)
+        output$stats_types <- renderPlotly(d_stats$types)
+        output$stats_speed_length <- renderPlotly(d_stats$length_speed)
+      }
     }
   })
   # countdown to next data update

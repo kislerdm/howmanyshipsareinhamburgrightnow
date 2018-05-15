@@ -1,4 +1,4 @@
-The application is a free dashboard which presents real-time summary of the vessels in the port of Hamburg and Elde river. <br><br> The following features are being displayed:
+The application is a free dashboard which presents real-time summary of the vessels in the port of Hamburg and Elbe river. <br><br> The following features are being displayed:
 
 * Total number of ships
 * Ships geolocation
