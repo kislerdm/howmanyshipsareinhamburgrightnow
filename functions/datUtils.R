@@ -7,9 +7,9 @@
 datFetcher <- function() {
   library(jsonlite, verbose = F, quietly = T)
   
-  dat <- tryCatch(fromJSON( gsub("\\@ts\\@", paste0(as.integer(Sys.time()), '000'), "https://shipahoy.io/api/v1/replay?start_ts=@ts@&end_ts=@ts@") )$vessels ,
+  dat <- tryCatch(fromJSON( gsub("\\@ts\\@", paste0(as.integer(Sys.time()), '000'), "https://shipahoy.io/api/v1/live?start_ts=@ts@&port_id=2&end_ts=@ts@") )$vessels ,
                   error = function(c) return(data.frame())
-  )
+  ) %>% data.frame()
   return(dat)
 }
 
